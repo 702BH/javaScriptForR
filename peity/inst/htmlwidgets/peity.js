@@ -1,24 +1,22 @@
 HTMLWidgets.widget({
 
-  name: 'play',
+  name: 'peity',
 
   type: 'output',
 
   factory: function(el, width, height) {
 
-
-
     // TODO: define shared variables for this instance
 
     return {
 
-
-
       renderValue: function(x) {
 
-        // TODO: code to render the widget, e.g.
-        console.log(x);
-        el.innerHTML = x.message;
+        //insert data
+        el.innerText = x.data;
+
+        // run peity
+        $(el).peity(x.type, x.options)
 
       },
 

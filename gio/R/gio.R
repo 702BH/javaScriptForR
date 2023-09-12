@@ -5,48 +5,55 @@
 #' @import htmlwidgets
 #'
 #' @export
-play <- function(message, width = NULL, height = NULL, elementId = NULL) {
+gio_style <- function(g, style = "magic"){
+  g$x$style <- style
+  return(g)
+}
+
+gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = as.character(message)
+    data = data
   )
+
+  attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
 
   # create widget
   htmlwidgets::createWidget(
-    name = 'play',
+    name = 'gio',
     x,
     width = width,
     height = height,
-    package = 'playground',
+    package = 'gio',
     elementId = elementId
   )
 }
 
-#' Shiny bindings for play
+#' Shiny bindings for gio
 #'
-#' Output and render functions for using play within Shiny
+#' Output and render functions for using gio within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a play
+#' @param expr An expression that generates a gio
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name play-shiny
+#' @name gio-shiny
 #'
 #' @export
-playOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'play', width, height, package = 'playground')
+gioOutput <- function(outputId, width = '100%', height = '400px'){
+  htmlwidgets::shinyWidgetOutput(outputId, 'gio', width, height, package = 'gio')
 }
 
-#' @rdname play-shiny
+#' @rdname gio-shiny
 #' @export
-renderPlay <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderGio <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, playOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, gioOutput, env, quoted = TRUE)
 }
