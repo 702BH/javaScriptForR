@@ -7,6 +7,7 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     // TODO: define shared variables for this instance
+    var controller;
 
     return {
 
@@ -14,7 +15,7 @@ HTMLWidgets.widget({
 
         // TODO: code to render the widget, e.g.
         var container = document.getElementById(el.id);
-        var controller = new GIO.Controller(el);
+        controller = new GIO.Controller(el);
         controller.addData(x.data);
         controller.setStyle(x.style);
         controller.init();

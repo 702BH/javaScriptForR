@@ -26,7 +26,12 @@ gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
     width = width,
     height = height,
     package = 'gio',
-    elementId = elementId
+    elementId = elementId,
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      defaultWidth = "100%",
+      padding=0,
+      browser.fill = TRUE
+    )
   )
 }
 
