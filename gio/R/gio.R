@@ -10,6 +10,11 @@ gio_style <- function(g, style = "magic"){
   return(g)
 }
 
+render_gio <- function(g){
+  g$x$data <- g$x$data[,c("e", "v", "i")]
+  return(g)
+}
+
 gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
@@ -18,6 +23,8 @@ gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
   )
 
   attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
+
+
 
   # create widget
   htmlwidgets::createWidget(
@@ -31,7 +38,8 @@ gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
       defaultWidth = "100%",
       padding=0,
       browser.fill = TRUE
-    )
+    ),
+    preRenderHook = render_gio
   )
 }
 
