@@ -5,6 +5,26 @@
 #' @import htmlwidgets
 #'
 #' @export
+
+gio_stats <- function(g){
+  path <- system.file("C:/Users/billy.houseman/Documents/GitHub/javaScriptForR/gio/inst/htmlwidgets/stats", package = "gio")
+
+  dep <- htmltools::htmlDependency(
+    name = "stats",
+    version = "17",
+    src = c(file=path),
+    script = "stats.min.js"
+  )
+
+  g$dependencies <- append(g$dependencies, list(dep))
+
+  g$x$stats <- TRUE
+
+
+  return(g)
+}
+
+
 gio_style <- function(g, style = "magic"){
   g$x$style <- style
   return(g)

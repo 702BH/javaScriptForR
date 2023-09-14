@@ -18,6 +18,11 @@ HTMLWidgets.widget({
         controller = new GIO.Controller(el);
         controller.addData(x.data);
         controller.setStyle(x.style);
+
+        if(x.stats)
+          controller.enableStats();
+
+
         controller.init();
 
       },
