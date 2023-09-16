@@ -2,14 +2,10 @@
 % Please edit documentation in R/gio.R
 \name{gio_stats}
 \alias{gio_stats}
-\title{\if{html}{\out{
-<Add Title>
-}}}
+\title{<Add Title>}
 \usage{
 gio_stats(g)
 }
 \description{
-\if{html}{\out{
 <Add Description>
-}}
 }

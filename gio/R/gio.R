@@ -7,7 +7,7 @@
 #' @export
 
 gio_stats <- function(g){
-  path <- system.file("C:/Users/billy.houseman/Documents/GitHub/javaScriptForR/gio/inst/htmlwidgets/stats", package = "gio")
+  path <- system.file("htmlwidgets/stats", package = "gio")
 
   dep <- htmltools::htmlDependency(
     name = "stats",
@@ -37,9 +37,22 @@ render_gio <- function(g){
 
 gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
 
+
+  group <- NULL
+  deps <- NULL
+
+  if(crosstalk::is.SharedData(data)){
+    group <- data$groupName()
+    data <- data$origData()
+    deps <- crosstalk::crosstalkLibs()
+  }
+
+
   # forward options using x
   x = list(
-    data = data
+    data = data.
+    style = "default",
+    crosstalk = list(group = group)
   )
 
   attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
@@ -59,7 +72,8 @@ gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
       padding=0,
       browser.fill = TRUE
     ),
-    preRenderHook = render_gio
+    preRenderHook = render_gio,
+    dependencies = deps
   )
 }
 

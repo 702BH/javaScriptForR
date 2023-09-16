@@ -8,10 +8,15 @@ HTMLWidgets.widget({
 
     // TODO: define shared variables for this instance
     var controller;
+    var sel_handle = new crosstalk.SelectionHandle();
 
     return {
 
       renderValue: function(x) {
+
+        sel_handle.setGroup(x.crosstalk.group);
+
+
 
         // TODO: code to render the widget, e.g.
         var container = document.getElementById(el.id);
@@ -19,8 +24,10 @@ HTMLWidgets.widget({
         controller.addData(x.data);
         controller.setStyle(x.style);
 
-        if(x.stats)
+        if(x.stats){
           controller.enableStats();
+        }
+
 
 
         controller.init();
@@ -29,10 +36,15 @@ HTMLWidgets.widget({
 
       resize: function(width, height) {
 
+        controller.resizeUpdate();
+
         // TODO: code to re-render the widget with a new size
 
       }
 
     };
+  },
+  function callback(selectedCountry){
+    sel_handle.set([selectedCountry.ISOCode]);
   }
 });
