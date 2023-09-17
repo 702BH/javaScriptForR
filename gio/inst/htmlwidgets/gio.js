@@ -40,11 +40,20 @@ HTMLWidgets.widget({
 
         // TODO: code to re-render the widget with a new size
 
-      }
-
+      },
     };
+    function callback(selectedCountry){
+      sel_handle.set([selectedCountry.ISOCode]);
+    }
+    controller.onCountryPicked(callback);
+
+    sel_handle.on("change", function(e){
+      if (e.sender !== sel_handle){
+
+      }
+      controller.switchCountry(e.value[0]);
+    })
+
+
   },
-  function callback(selectedCountry){
-    sel_handle.set([selectedCountry.ISOCode]);
-  }
 });
