@@ -10,19 +10,36 @@ HTMLWidgets.widget({
     var controller;
     var sel_handle = new crosstalk.SelectionHandle();
 
+    sel_handle.on("change", function(e){
+      if (e.sender !== sel_handle){
+
+      }
+      controller.switchCountry(e.value[0]);
+    });
+
     return {
 
       renderValue: function(x) {
 
-        sel_handle.setGroup(x.crosstalk.group);
+        
 
 
 
         // TODO: code to render the widget, e.g.
         var container = document.getElementById(el.id);
         controller = new GIO.Controller(el);
+
+        sel_handle.setGroup(x.crosstalk.group);
+
         controller.addData(x.data);
         controller.setStyle(x.style);
+
+        controller.onCountryPicked(callback);
+
+        function callback(selectedCountry){
+          sel_handle.set([selectedCountry.ISOCode]);
+        }
+
 
         if(x.stats){
           controller.enableStats();
@@ -42,17 +59,8 @@ HTMLWidgets.widget({
 
       },
     };
-    function callback(selectedCountry){
-      sel_handle.set([selectedCountry.ISOCode]);
-    }
-    controller.onCountryPicked(callback);
 
-    sel_handle.on("change", function(e){
-      if (e.sender !== sel_handle){
 
-      }
-      controller.switchCountry(e.value[0]);
-    })
 
 
   },

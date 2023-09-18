@@ -35,22 +35,29 @@ render_gio <- function(g){
   return(g)
 }
 
-gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
+gio <- function(data, source, target, value, ...,
+                width = NULL, height = NULL, elementId = NULL) {
 
 
   group <- NULL
-  deps <- NULL
 
   if(crosstalk::is.SharedData(data)){
     group <- data$groupName()
     data <- data$origData()
-    deps <- crosstalk::crosstalkLibs()
   }
+
+  data <- dplyr::select(
+    data,
+    i = {{ source }},
+    e = {{ target }},
+    v = {{ value }}
+  )
 
 
   # forward options using x
   x = list(
-    data = data.
+    configs = list(...),
+    data = data,
     style = "default",
     crosstalk = list(group = group)
   )
@@ -70,10 +77,10 @@ gio <- function(data, width = NULL, height = NULL, elementId = NULL) {
     sizingPolicy = htmlwidgets::sizingPolicy(
       defaultWidth = "100%",
       padding=0,
-      browser.fill = TRUE
+      browser.fill = TRUE,
     ),
     preRenderHook = render_gio,
-    dependencies = deps
+    dependencies = crosstalk::crosstalkLibs()
   )
 }
 
