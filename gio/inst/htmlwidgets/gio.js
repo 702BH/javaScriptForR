@@ -21,13 +21,13 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        
+
 
 
 
         // TODO: code to render the widget, e.g.
         var container = document.getElementById(el.id);
-        controller = new GIO.Controller(el);
+        controller = new GIO.Controller(el, x.configs);
 
         sel_handle.setGroup(x.crosstalk.group);
 
