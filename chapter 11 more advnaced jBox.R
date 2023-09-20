@@ -1,4 +1,4 @@
-# Chapter 11 jBox app
+# chapter 11 more advnaced jBo
 
 library(shiny)
 
@@ -18,23 +18,25 @@ ui <- fluidPage(
       )
     )
   ),
+  textInput("msg", "notice"),
+  actionButton("notify", "Notify myself"),
   tags$script(
     "Shiny.addCustomMessageHandler(
-    type = 'send-notice', function(message) {
-      new jBox('Notice', {
-        content: message
-      });
-  });"
-    
+      type = 'send-notice', function(message) {
+        new jBox('Notice', {
+          content: message
+        });
+    });"
   )
-  
 )
 
 server <- function(input, output, session) {
   
-  session$sendCustomMessage(
-    type = "send-notice", message = "Hi there!"
-  )
+  observeEvent(input$notify, {
+    session$sendCustomMessage(
+      type = "send-notice", message = input$msg
+    )
+  })
   
 }
 
