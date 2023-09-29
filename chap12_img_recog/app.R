@@ -36,11 +36,15 @@ ui <- fluidPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   output$birdDisplay <- renderUI({
     path <- sprintf("assets/%s.jpg", input$selectBird)
     tags$img(src = path, id = "bird")
+  })
+  
+  observeEvent(input$classify, {
+    session$sendCustomMessage("classify",list())
   })
 
 }
