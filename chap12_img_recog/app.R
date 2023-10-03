@@ -31,7 +31,8 @@ ui <- fluidPage(
     choices = c("flamingo", "lorikeet")
   ),
   actionButton("classify", "Classify"),
-  uiOutput("birdDisplay")
+  uiOutput("birdDisplay"),
+  verbatimTextOutput("results")
 
 )
 
@@ -45,6 +46,11 @@ server <- function(input, output, session) {
   
   observeEvent(input$classify, {
     session$sendCustomMessage("classify",list())
+  })
+  
+  
+  output$results <- renderPrint({
+    print(input$classification)
   })
 
 }
