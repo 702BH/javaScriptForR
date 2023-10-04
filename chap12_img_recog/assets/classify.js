@@ -10,7 +10,7 @@ Shiny.addCustomMessageHandler('classify', function(data){
     // Classify bird
     classifier.classify(
         document.getElementById("bird"), (err, results) => {
-            Shiny.setInputValue("classification", results)
+            Shiny.setInputValue("classification:ml5.class", results)
         }
     );
 });

@@ -18,6 +18,12 @@ dependency_ml5 <- htmltools::htmlDependency(
   script = "ml5.min.js"
 )
 
+process_results <- function(data, ...){
+  purrr::map_dfr(data, as.data.frame)
+}
+
+registerInputHandler("ml5.class", process_results)
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -32,7 +38,7 @@ ui <- fluidPage(
   ),
   actionButton("classify", "Classify"),
   uiOutput("birdDisplay"),
-  verbatimTextOutput("results")
+  tableOutput("results")
 
 )
 
@@ -49,8 +55,8 @@ server <- function(input, output, session) {
   })
   
   
-  output$results <- renderPrint({
-    print(input$classification)
+  output$results <- renderTable({
+    input$classification
   })
 
 }
