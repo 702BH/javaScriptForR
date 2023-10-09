@@ -18,15 +18,15 @@ ui <- fluidPage(
     tags$link(href = "www/style.css", rel = "stylesheet"),
     tags$script(src = "www/script.js")
   ),
-  #gif indicator
-  tags$img(src = "www/typing.gif", id = "loading"),
+  # gif indicator
+  tags$img(src = "https://raw.githubusercontent.com/JohnCoene/javascript-for-r/master/code/events/www/typing.gif", id = "loading"),
   plotOutput("plot"),
   actionButton("render", "render")
 
 )
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   output$plot <- renderPlot({
     input$render # redraw on click
     
