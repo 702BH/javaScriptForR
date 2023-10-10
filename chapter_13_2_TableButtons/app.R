@@ -13,7 +13,9 @@ library(DT)
 
 
 ui <- fluidPage(
-  DTOutput("table")
+  DTOutput("table"),
+  strong("Clicked Model:"),
+  verbatimTextOutput("model")
 
 )
 
@@ -23,26 +25,25 @@ server <- function(input, output, session) {
   
   output$table <- renderDT({
     # on click function
-    onClick <- sprintf(
-      "Shiny.setInputValue('clicl', '%s')",
-      rownames(mtcars)
-    )
+    onclick <- paste0("Shiny.setInputValue('click', '", rownames(mtcars), "')")
     
     # button with onClick function
-    button <- sprintf(
-      "<a class = 'btn btn-primary' onClick = '%s'>Click me </a>",
-      onClick
-    )
+    button <- paste0("<a class='btn btn-primary' onClick=\"", onclick, "\">Click me</a>")
     
-    
+    # add button to data.frame
     mtcars$button <- button
+    
     datatable(
-      mtcars,
-      escape = FALSE,
-      selection = "none",
-      rownames = FALSE,
+      mtcars, 
+      escape = FALSE, 
+      selection = "none", 
+      rownames = FALSE, 
       style = "bootstrap"
     )
+  })
+  
+  output$model <- renderPrint({
+    print(input$click)
   })
 
 }
