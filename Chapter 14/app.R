@@ -33,3 +33,15 @@ boxxyOutput <- function(id){
   
   htmltools::attachDependencies(el, deps)
 }
+
+renderBoxxy <- function(expr, env = parent.frame(),
+                        quoted = FALSE){
+  
+  # Convert the expression + environment into a function
+  func <- shiny::exprToFunction(expr, env, quoted)
+  
+  function(){
+    func()
+  }
+  
+}
